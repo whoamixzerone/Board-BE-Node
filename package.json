@@ -1,0 +1,36 @@
+{
+  "name": "board-be-node",
+  "version": "0.0.1",
+  "description": "초심 마음으로 Node.js 게시판 구현",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whoamixzerone/Board-BE-Node.git"
+  },
+  "author": "ZerOne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whoamixzerone/Board-BE-Node/issues"
+  },
+  "homepage": "https://github.com/whoamixzerone/Board-BE-Node#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.20.1",
+    "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3"
+  }
+}
