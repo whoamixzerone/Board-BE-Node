@@ -35,8 +35,10 @@ Date Created : 2022-06-06
 
 1. Node.js 서버 연결 초기화
 
-- 2022-06-07
+Date Created : 2022-06-07
 
 1. 게시판 CRUD - 목록 조회(GET)
 2. json 파일로 데이터 조회
 3. API 설계
+4. 게시판 CRUD - 게시글 등록(POST)
+5. json 파일에 데이터 쓰기
