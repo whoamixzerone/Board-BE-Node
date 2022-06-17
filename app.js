@@ -3,7 +3,6 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const indexRouter = require('./routes');
 const postRouter = require('./routes/post');
 const app = express();
 
@@ -16,7 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/', indexRouter);
 app.use('/posts', postRouter);
 
 app.use((req, res, next) => {
