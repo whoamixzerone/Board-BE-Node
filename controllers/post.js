@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs').promises;
 
 exports.addWriteData = async (data) => {
-  console.log(data);
   await fs.writeFile(
     path.join(__dirname, '../simple-data.json'),
     JSON.stringify(data),
