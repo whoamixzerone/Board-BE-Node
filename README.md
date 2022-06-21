@@ -29,6 +29,9 @@
 👉 [프로젝트 ToDo](https://github.com/whoamixzerone/Board-BE-Node/blob/main/TODO.md)
 
 ## API 설계
+
 ![api-design](https://user-images.githubusercontent.com/67082984/174292989-a8a60a2a-cd43-4804-802f-109b1f686ef4.png)
 
 ## DB 설계
+
+👉 [DB 설계](https://github.com/whoamixzerone/Board-BE-Node/wiki#DB%20%EC%84%A4%EA%B3%84)

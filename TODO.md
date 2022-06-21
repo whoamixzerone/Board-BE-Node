@@ -57,3 +57,8 @@ Date Created: 2022-06-20
 
 1. 게시글 삭제, 단위 테스트 완료
 2. 특정 게시글 조회, 단위 테스트 완료
+
+Date Created : 2022-06-21
+
+1. Entity, Behaviro 도출
+2. DB-ERD 작성
