@@ -3,10 +3,20 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
+const { sequelize } = require('./models');
 const postRouter = require('./routes/post');
 const app = express();
 
 app.set('port', process.env.PORT || 8080);
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('DataBase Connected');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 // dev(개발용) 로그 기록(HTTP method, path status 등)
 app.use(morgan('dev'));

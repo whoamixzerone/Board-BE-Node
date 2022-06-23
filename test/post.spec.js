@@ -3,7 +3,11 @@ const path = require('path');
 const fs = require('fs').promises;
 const app = require('../app');
 
-beforeAll(() => {});
+const { sequelize, User, Post } = require('../models');
+
+beforeAll(async () => {
+  await sequelize.sync();
+});
 
 describe('GET /posts', () => {
   test('게시글 전체 조회', (done) => {
@@ -108,6 +112,7 @@ describe('GET /posts/1', () => {
     });
   });
 });
+
 afterAll(async () => {
   const data = [
     {
@@ -127,4 +132,7 @@ afterAll(async () => {
     JSON.stringify(data),
     'utf-8'
   );
+
+  await sequelize.sync({ force: true });
+  await sequelize.close();
 });

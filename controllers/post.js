@@ -1,5 +1,8 @@
+const Sequelize = require('sequelize');
 const path = require('path');
 const fs = require('fs').promises;
+
+const { User, Post, sequelize } = require('../models');
 
 exports.addWriteData = async (data) => {
   await fs.writeFile(
@@ -11,7 +14,15 @@ exports.addWriteData = async (data) => {
 
 exports.getPostList = async (req, res, next) => {
   try {
-    res.status(200).json(JSON.parse(req.posts));
+    // MySQL 문법
+    const query = 'SELECT * FROM posts';
+    const posts = await sequelize.query(query, {
+      type: sequelize.QueryTypes.SELECT,
+    });
+    // sequelize 문법
+    // const posts = await Post.findAll();
+
+    res.status(200).json(posts);
   } catch (err) {
     console.error(err);
     next(err);

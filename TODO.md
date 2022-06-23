@@ -62,3 +62,9 @@ Date Created : 2022-06-21
 
 1. Entity, Behaviro 도출
 2. DB-ERD 작성
+
+Date Created: 2022-06-23
+
+1. 테이블 및 컬럼 설정
+2. 관계 설정
+3. 게시판 조회(db로 변경) & 단위 테스트 확인
