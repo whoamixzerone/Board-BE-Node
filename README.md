@@ -12,13 +12,15 @@
 프론트 엔드는 react로 구현된 오픈 소스를 사용하여 지금은 백엔드에만 집중하려고 한다.
 
 ## 사용 기술(Skill)
-* Node.js
-* MySQL(sequelize)
-* jest(test)
+<img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/354118/nodejs.svg" />
+<img alt= "icon" wide="60" height="60" src ="https://techstack-generator.vercel.app/mysql-icon.svg" />
+<img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/374071/sequelize.svg" />
+<img src="https://techstack-generator.vercel.app/jest-icon.svg" alt="icon" width="60" height="60" />
+<img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="60" height="60" /><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="60" height="60" />
 
 ## 프로젝트 기능
 * 게시판 - CRUD, 조회수, 댓글
-* 사용자 - 회원가입, 로그인, 로그아웃, 세션, 권한
+* 사용자 - 회원가입, 로그인, 로그아웃
 
 프로젝트의 기능은 한 단계씩 증가 시키면서 구현을 하려고 한다.
 
