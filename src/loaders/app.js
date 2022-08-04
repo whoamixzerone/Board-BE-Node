@@ -1,22 +1,14 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const { sequelize } = require('./models');
-const postRouter = require('./routes/post');
+const routes = require('../api/routes');
+
 const app = express();
-
-app.set('port', process.env.PORT || 8080);
-
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log('DataBase Connected');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
 
 // dev(개발용) 로그 기록(HTTP method, path status 등)
 app.use(morgan('dev'));
@@ -25,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/posts', postRouter);
+app.use('/api', routes);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} not found route`);

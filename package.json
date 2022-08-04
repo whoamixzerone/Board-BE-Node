@@ -4,7 +4,8 @@
   "description": "초심 마음으로 Node.js 게시판 구현",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "test": "jest"
   },
   "repository": {
@@ -25,8 +26,7 @@
     "express-session": "^1.17.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.20.1",
-    "sequelize-cli": "^6.4.1"
+    "sequelize": "^6.20.1"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
@@ -37,6 +37,7 @@
     "jest": "^28.1.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",
+    "sequelize-cli": "^6.4.1",
     "supertest": "^6.2.3"
   }
 }

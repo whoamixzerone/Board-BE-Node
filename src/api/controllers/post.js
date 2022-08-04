@@ -8,7 +8,7 @@ exports.addWriteData = async (data) => {
   await fs.writeFile(
     path.join(__dirname, '../simple-data.json'),
     JSON.stringify(data),
-    'utf8'
+    'utf8',
   );
 };
 

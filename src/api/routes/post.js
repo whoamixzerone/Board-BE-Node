@@ -14,7 +14,7 @@ router.use(async (req, res, next) => {
   try {
     const posts = await fs.readFile(
       path.join(__dirname, '../simple-data.json'),
-      'utf8'
+      'utf8',
     );
     req.posts = posts;
     next();

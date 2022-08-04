@@ -1,9 +1,9 @@
 const request = require('supertest');
 const path = require('path');
 const fs = require('fs').promises;
-const app = require('../app');
+const app = require('../loaders/app');
 
-const { sequelize, User, Post } = require('../models');
+const { sequelize, User, Post } = require('../api/models');
 
 beforeAll(async () => {
   await sequelize.sync();
@@ -91,7 +91,7 @@ describe('GET /posts/1', () => {
       await fs.writeFile(
         path.join(__dirname, '../simple-data.json'),
         JSON.stringify(data),
-        'utf-8'
+        'utf-8',
       );
     });
 
@@ -130,7 +130,7 @@ afterAll(async () => {
   await fs.writeFile(
     path.join(__dirname, '../simple-data.json'),
     JSON.stringify(data),
-    'utf-8'
+    'utf-8',
   );
 
   await sequelize.sync({ force: true });
