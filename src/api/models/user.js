@@ -12,10 +12,16 @@ module.exports = class User extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: false,
           unique: true,
+          validate: {
+            isEmail: true,
+          },
         },
         password: {
           type: Sequelize.STRING(100),
           allowNull: false,
+          validate: {
+            min: 6,
+          },
         },
         createdAt: {
           type: Sequelize.DATE,
@@ -32,11 +38,13 @@ module.exports = class User extends Sequelize.Model {
         tableName: 'users',
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      }
+      },
     );
   }
 
   static associate(db) {
-    db.User.hasMany(db.Post);
+    db.User.hasMany(db.Post, {
+      foreignKey: { name: 'userId', allowNull: false },
+    });
   }
 };

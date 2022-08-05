@@ -2,30 +2,28 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs').promises;
 
-const {
-  getPostList,
-  addPostList,
-  addWriteData,
-} = require('../controllers/post');
+const { getPostList, addWriteData } = require('../controllers/post');
+
+const postController = require('../controllers/post');
 
 const router = express.Router();
 
-router.use(async (req, res, next) => {
-  try {
-    const posts = await fs.readFile(
-      path.join(__dirname, '../simple-data.json'),
-      'utf8',
-    );
-    req.posts = posts;
-    next();
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+// router.use(async (req, res, next) => {
+//   try {
+//     const posts = await fs.readFile(
+//       path.join(__dirname, '../simple-data.json'),
+//       'utf8',
+//     );
+//     req.posts = posts;
+//     next();
+//   } catch (err) {
+//     console.error(err);
+//     next(err);
+//   }
+// });
 
-router.get('/', getPostList);
-router.post('/', addPostList);
+router.get('/', postController.getPostList);
+router.post('/', postController.addPostList);
 
 router.patch('/:id', (req, res, next) => {
   const _id = parseInt(req.params.id);

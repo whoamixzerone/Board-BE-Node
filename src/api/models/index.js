@@ -2,7 +2,6 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '../../config/config.js'))[env];
-console.log('config >>>', config);
 
 const User = require('./user');
 const Post = require('./post');

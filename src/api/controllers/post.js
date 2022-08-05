@@ -1,18 +1,16 @@
-const Sequelize = require('sequelize');
 const path = require('path');
 const fs = require('fs').promises;
+const postService = require('../services/post');
 
-const { User, Post, sequelize } = require('../models');
+// const addWriteData = async (data) => {
+//   await fs.writeFile(
+//     path.join(__dirname, '../simple-data.json'),
+//     JSON.stringify(data),
+//     'utf8',
+//   );
+// };
 
-exports.addWriteData = async (data) => {
-  await fs.writeFile(
-    path.join(__dirname, '../simple-data.json'),
-    JSON.stringify(data),
-    'utf8',
-  );
-};
-
-exports.getPostList = async (req, res, next) => {
+const getPostList = async (req, res, next) => {
   try {
     // MySQL 문법
     const query = 'SELECT * FROM posts';
@@ -29,24 +27,22 @@ exports.getPostList = async (req, res, next) => {
   }
 };
 
-exports.addPostList = async (req, res, next) => {
+const addPostList = async (req, res, next) => {
   try {
-    const postList = JSON.parse(req.posts);
-    const data = {
-      id: postList.length + 1,
-      title: req.body.title,
-      content: req.body.content,
-      registerId: 'xxx',
-      hits: 0,
-      registerDate: '2022-06-17',
-    };
-    postList.push(data);
+    const result = await postService.create(req.body);
+    if (result instanceof Error) {
+      return next(result);
+    }
 
-    this.addWriteData(postList);
-
-    res.redirect('/posts');
+    return res.status(201).json(result);
   } catch (err) {
     console.error(err);
-    next(err);
+    return next(err);
   }
+};
+
+module.exports = {
+  addPostList,
+  getPostList,
+  // addWriteData,
 };

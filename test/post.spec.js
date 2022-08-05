@@ -1,9 +1,9 @@
 const request = require('supertest');
 const path = require('path');
 const fs = require('fs').promises;
-const app = require('../loaders/app');
+const app = require('../src/loaders/app');
 
-const { sequelize, User, Post } = require('../api/models');
+const { sequelize, User, Post } = require('../src/api/models');
 
 beforeAll(async () => {
   await sequelize.sync();

@@ -21,17 +21,19 @@ module.exports = class Post extends Sequelize.Model {
       {
         sequelize,
         timestamps: true,
-        paranoid: false,
+        paranoid: true,
         underscored: false,
         modelName: 'Post',
         tableName: 'posts',
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      }
+      },
     );
   }
 
   static associate(db) {
-    db.Post.belongsTo(db.User);
+    db.Post.belongsTo(db.User, {
+      foreignKey: { name: 'userId', allowNull: false },
+    });
   }
 };
