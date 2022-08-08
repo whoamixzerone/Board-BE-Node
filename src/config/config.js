@@ -9,7 +9,7 @@ module.exports = {
   test: {
     username: 'scott',
     password: 'scott',
-    database: 'simple_board_test',
+    database: 'test_simple_board',
     host: '127.0.0.1',
     dialect: 'mysql',
     logging: false,
