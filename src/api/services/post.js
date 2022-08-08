@@ -1,10 +1,9 @@
-const { raw } = require('express');
 const { Post, sequelize } = require('../models');
 
 /**
  * @whoamixzerone
- * @param {object} postDto : title, content, userId
- * @returns {Promise} postDTO
+ * @param {object} postDto : title, content, user.id, user.name
+ * @returns {Promise|Error} postDTO
  */
 const create = async (postDto) => {
   try {
@@ -21,7 +20,27 @@ const create = async (postDto) => {
     //       postDto.userId,
     //     ],
     // });
-    return await Post.create(postDto);
+    const result = await Post.create(postDto);
+    return { id: result.dataValues.id };
+  } catch (err) {
+    console.error(err);
+    return new Error(err);
+  }
+};
+
+/**
+ * @whoamixzerone
+ * @param {object} postDto : id, title, content, user.id, user.name
+ * @returns {Promise|Error} postDTO
+ */
+const update = async (postDto) => {
+  try {
+    const result = await Post.update(postDto, { where: { id: postDto.id } });
+    if (result[0] === 0) {
+      const error = new Error('존재하지 않는 게시글입니다');
+      error.status = 404;
+      return error;
+    }
   } catch (err) {
     console.error(err);
     return new Error(err);
@@ -30,4 +49,5 @@ const create = async (postDto) => {
 
 module.exports = {
   create,
+  update,
 };

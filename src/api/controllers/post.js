@@ -1,14 +1,4 @@
-const path = require('path');
-const fs = require('fs').promises;
 const postService = require('../services/post');
-
-// const addWriteData = async (data) => {
-//   await fs.writeFile(
-//     path.join(__dirname, '../simple-data.json'),
-//     JSON.stringify(data),
-//     'utf8',
-//   );
-// };
 
 const getPostList = async (req, res, next) => {
   try {
@@ -27,9 +17,18 @@ const getPostList = async (req, res, next) => {
   }
 };
 
-const addPostList = async (req, res, next) => {
+const createPost = async (req, res, next) => {
+  // todo : 임시 데이터
+  req.user = {
+    userId: 1,
+    name: '홍길동',
+  };
+  const postDto = {
+    ...req.body,
+    ...req.user,
+  };
   try {
-    const result = await postService.create(req.body);
+    const result = await postService.create(postDto);
     if (result instanceof Error) {
       return next(result);
     }
@@ -41,8 +40,32 @@ const addPostList = async (req, res, next) => {
   }
 };
 
+const updatePost = async (req, res, next) => {
+  // todo : 임시 데이터
+  req.user = {
+    userId: 1,
+    name: '홍길동',
+  };
+  const postDto = {
+    id: Number(req.params.id),
+    ...req.body,
+    ...req.user,
+  };
+  try {
+    const result = await postService.update(postDto);
+    if (result instanceof Error) {
+      return next(result);
+    }
+
+    return res.status(200).end();
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 module.exports = {
-  addPostList,
+  createPost,
+  updatePost,
   getPostList,
-  // addWriteData,
 };
