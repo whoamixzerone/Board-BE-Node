@@ -12,11 +12,11 @@
 프론트 엔드는 react로 구현된 오픈 소스를 사용하여 지금은 백엔드에만 집중하려고 한다.
 
 ## 사용 기술(Skill)
-<img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/354118/nodejs.svg" />
+<p><img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/354118/nodejs.svg" />
 <img alt= "icon" wide="60" height="60" src ="https://techstack-generator.vercel.app/mysql-icon.svg" />
 <img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/374071/sequelize.svg" />
 <img src="https://techstack-generator.vercel.app/jest-icon.svg" alt="icon" width="60" height="60" />
-<img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="60" height="60" /><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="60" height="60" />
+<img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="60" height="60" /><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="60" height="60" /></p>
 
 ## 프로젝트 기능
 * 게시판 - CRUD, 조회수, 댓글
@@ -59,4 +59,4 @@
 ![api-design](https://user-images.githubusercontent.com/67082984/174292989-a8a60a2a-cd43-4804-802f-109b1f686ef4.png)
 
 ## DB 설계
-👉 [DB 설계](https://github.com/whoamixzerone/Board-BE-Node/wiki#DB%20%EC%84%A4%EA%B3%84)
+![simple-board-erd](https://user-images.githubusercontent.com/67082984/183644324-66b6445d-6779-49b1-a27a-089ad57f124b.png)
