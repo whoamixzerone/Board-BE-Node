@@ -9,6 +9,8 @@ beforeAll(async () => {
   };
   Post.create = jest.fn();
   Post.update = jest.fn();
+  Post.destroy = jest.fn();
+  Post.restore = jest.fn();
 });
 
 describe('POST /posts', () => {
@@ -51,7 +53,7 @@ describe('PATCH /posts/1', () => {
     };
     const ret = [1];
     Post.update.mockReturnValue(ret);
-    const result = await postService.update(postDto);
+    await postService.update(postDto);
 
     expect(typeof postService.update).toBe('function');
     expect(Post.update).toBeCalledTimes(1);
@@ -78,6 +80,55 @@ describe('PATCH /posts/1', () => {
   });
 });
 
+describe('DELETE /posts/2', () => {
+  test('게시글 삭제 성공', async () => {
+    const id = 2;
+    const ret = 1;
+    Post.destroy.mockReturnValue(ret);
+    await postService.destroy(id);
+
+    expect(typeof postService.destroy).toBe('function');
+    expect(Post.destroy).toBeCalledTimes(1);
+    expect(Post.destroy).toBeCalledWith({ where: { id } });
+  });
+
+  test('게시글 삭제 실패', async () => {
+    const id = 100;
+    const ret = 0;
+    const error = new Error('존재하지 않는 게시글입니다');
+    Post.destroy.mockReturnValue(ret);
+    const result = await postService.destroy(id);
+
+    expect(Post.destroy).toBeCalledWith({ where: { id } });
+    expect(result).toStrictEqual(error);
+  });
+});
+
+describe('PATCH /posts/10', () => {
+  test('게시글 복구 성공', async () => {
+    const id = 10;
+    const ret = 1;
+    Post.restore.mockReturnValue(ret);
+    await postService.restore(id);
+
+    expect(typeof postService.restore).toBe('function');
+    expect(Post.restore).toBeCalledTimes(1);
+    expect(Post.restore).toBeCalledWith({ where: { id } });
+  });
+
+  test('게시글 복구 실패', async () => {
+    const id = 100;
+    const ret = 0;
+    const error = new Error(
+      '존재하지 않는 게시글이거나, 삭제되지 않는 게시글입니다',
+    );
+    Post.restore.mockReturnValue(ret);
+    const result = await postService.restore(id);
+
+    expect(result).toStrictEqual(error);
+  });
+});
+
 // describe('GET /posts', () => {
 //   test('게시글 전체 조회', (done) => {
 //     request(app)
@@ -89,23 +140,6 @@ describe('PATCH /posts/1', () => {
 //         expect(res.body).toBeInstanceOf(Array);
 //         done();
 //       });
-//   });
-// });
-
-// describe('DELETE /posts/1', () => {
-//   describe('게시글 삭제 성공', () => {
-//     test('302 /posts 리다이렉션', (done) => {
-//       request(app)
-//         .delete('/posts/1')
-//         .expect('Location', '/posts')
-//         .expect(302, done);
-//     });
-//   });
-
-//   describe('게시글 삭제 실패', () => {
-//     test('없는 id일 경우 404 응답', (done) => {
-//       request(app).delete('/posts/3').expect(404, done);
-//     });
 //   });
 // });
 
