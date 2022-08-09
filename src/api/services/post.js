@@ -1,5 +1,11 @@
 const { Post, sequelize } = require('../models');
 
+const setError = (status = 500, message) => {
+  const error = new Error(message);
+  error.status = status;
+  return error;
+};
+
 /**
  * @whoamixzerone
  * @param {object} postDto : title, content, user.id, user.name
@@ -24,30 +30,67 @@ const create = async (postDto) => {
     return { id: result.dataValues.id };
   } catch (err) {
     console.error(err);
-    return new Error(err);
+    return setError(err);
   }
 };
 
 /**
  * @whoamixzerone
  * @param {object} postDto : id, title, content, user.id, user.name
- * @returns {Promise|Error} postDTO
+ * @returns {Error}
  */
 const update = async (postDto) => {
   try {
     const result = await Post.update(postDto, { where: { id: postDto.id } });
     if (result[0] === 0) {
-      const error = new Error('존재하지 않는 게시글입니다');
-      error.status = 404;
-      return error;
+      return setError(404, '존재하지 않는 게시글입니다');
     }
   } catch (err) {
     console.error(err);
-    return new Error(err);
+    return setError(err);
+  }
+};
+
+/**
+ * @whoamixzerone
+ * @param {number} id
+ * @returns {Error}
+ */
+const destroy = async (id) => {
+  try {
+    const result = await Post.destroy({ where: { id } });
+    if (result === 0) {
+      return setError(404, '존재하지 않는 게시글입니다');
+    }
+  } catch (err) {
+    console.error(err);
+    return setError(err);
+  }
+};
+
+/**
+ * @whoamixzerone
+ * @param {number} id
+ * @returns {Error}
+ */
+const restore = async (id) => {
+  try {
+    const result = await Post.restore({ where: { id } });
+    if (result === 0) {
+      return setError(
+        404,
+        '존재하지 않는 게시글이거나, 삭제되지 않는 게시글입니다',
+      );
+    }
+  } catch (err) {
+    console.error(err);
+    return setError(err);
   }
 };
 
 module.exports = {
   create,
   update,
+  destroy,
+  restore,
 };
