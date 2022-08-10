@@ -1,42 +1,37 @@
-# TO DO Function
-
-Date Created : 2022-06-05
-
-1. ~~React 게시판 오픈 소스를 사용하여 UI 구현~~
-2. json 파일을 사용해 게시판 목록 조회(GET)
-3. 게시판 작성하기 등록(POST) - 파일에 추가
-4. 게시판 수정하기 수정(PATCH) - 파일에 수정
-5. 게시판 삭제하기 삭제(DELETE) - 파일에 삭제
-6. sequelize, mysql로 데이터 DB에 CRUD 로직 수정
-7. 회원가입, 로그인 화면 UI 추가
-8. Model, DB 테이블 추가
-9. 회원가입, 로그인 서버 구현
-
 # TO DO List
+### 1차 개발
+* 게시판 CRUD
+    * json 파일 데이터
+* 게시판 CRUD
+    * json 데이터 -> MySQL, Sequelize로 변경
+* 게시글 복구
+* 회원가입
+* 로그인
+    * JWT Token 사용
+* 로그아웃
+* 유닛 테스트
 
-Date Created : 2022-06-05
+### 2차 개발(예정)
+* TypeScript 도입
+* Typeorm 도입
+    * Sequelize -> Typeorm 변경
 
-- 게시판 CRUD
-- Entities(Object) 도출
-- Behavior 도출
-- 관계 설정
-- 테이블 및 컬럼 구성
-- DB 모델링 이미지
-- 단위 테스트
-- 리팩토링
+### 3차 개발(예정)
+* 권한 검증
+* Sorting
+* Searching
+* Filtering
+* Pagination
+* 좋아요 기능
+* 해시태그 기능
+* Redis Cache 도입
 
-Date Created : 2022-06-07
+### 4차 개발(예정)
+* Github Actions(CI/CD)
+* Docker 배포
+* AWS EC2 배포
 
-- API 설계
-
-## In Progress
-
-Date Created : 2022-06-06
-
-1. Node.js 서버 연결 초기화
-
-- 2022-06-07
-
-1. 게시판 CRUD - 목록 조회(GET)
-2. json 파일로 데이터 조회
-3. API 설계
+### 5차 개발(예정)
+* 추가 기능
+    * 조회수 1인당 1번만 
+    * Hot 게시글(조회수)

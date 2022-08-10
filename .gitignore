@@ -16,7 +16,7 @@ npm-debug.log*
 [._]*.sw[a-p]
 [._]*.un~
 
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
