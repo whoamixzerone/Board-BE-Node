@@ -11,6 +11,8 @@ beforeAll(async () => {
   Post.update = jest.fn();
   Post.destroy = jest.fn();
   Post.restore = jest.fn();
+  Post.findByPk = jest.fn();
+  Post.findAll = jest.fn();
 });
 
 describe('POST /posts', () => {
@@ -129,58 +131,96 @@ describe('PATCH /posts/10', () => {
   });
 });
 
-// describe('GET /posts', () => {
-//   test('게시글 전체 조회', (done) => {
-//     request(app)
-//       .get('/posts')
-//       .expect(200)
-//       .end((err, res) => {
-//         if (err) throw err;
+describe('GET /posts/1', () => {
+  test('특정 게시글 조회 성공', async () => {
+    const id = 1;
+    const views = 1;
+    const retValue = {
+      id: 1,
+      title: 'test',
+      content: 'test',
+      views: 1,
+      updatedAt: '2022-08-08T08:51:04.971Z',
+      createdAt: '2022-08-08T08:51:04.971Z',
+      User: {
+        name: '홍길동',
+      },
+    };
 
-//         expect(res.body).toBeInstanceOf(Array);
-//         done();
-//       });
-//   });
-// });
+    Post.update = jest.fn();
+    Post.findByPk = jest
+      .fn()
+      .mockReturnValueOnce({
+        id: 1,
+        title: 'test',
+        content: 'test',
+        views: 0,
+        userId: 1,
+        updatedAt: '2022-08-08T08:51:04.971Z',
+        createdAt: '2022-08-08T08:51:04.971Z',
+        getDataValue: jest.fn(() => 0),
+      })
+      .mockReturnValueOnce(retValue);
+    Post.update.mockReturnValue([1]);
+    const result = await postService.updateAndFindId(id);
 
-// describe('GET /posts/1', () => {
-//   describe('특정 게시글 조회 성공', () => {
-//     beforeEach(async () => {
-//       const data = [
-//         {
-//           id: 1,
-//           title: 'test',
-//           content: 'test',
-//           registerId: 'xxx',
-//           hits: 0,
-//           registerDate: '2022-06-17',
-//         },
-//       ];
+    expect(typeof postService.updateAndFindId).toBe('function');
+    expect(Post.update).toHaveBeenCalled();
+    expect(Post.findByPk).toBeCalledTimes(2);
+    expect(Post.update).toBeCalledWith({ views }, { where: { id } });
+    expect(Post.findByPk).toBeCalledWith(id, {
+      attributes: { exclude: ['deletedAt', 'userId'] },
+      include: {
+        model: User,
+        attributes: ['name'],
+      },
+    });
+    expect(result).toStrictEqual(retValue);
+  });
 
-//       await fs.writeFile(
-//         path.join(__dirname, '../simple-data.json'),
-//         JSON.stringify(data),
-//         'utf-8',
-//       );
-//     });
+  test('없는 id(100)일 경우 Error', async () => {
+    const id = 100;
+    const error = new Error('존재하지 않는 게시글입니다');
+    Post.findByPk.mockReturnValue(null);
+    const result = await postService.updateAndFindId(id);
 
-//     test('200 특정 게시글 반환', (done) => {
-//       request(app)
-//         .get('/posts/1')
-//         .expect(200)
-//         .end((err, res) => {
-//           expect(res.body).toBeInstanceOf(Object);
-//           done();
-//         });
-//     });
-//   });
+    expect(Post.findByPk).toBeCalledWith(id);
+    expect(result).toStrictEqual(error);
+  });
+});
 
-//   describe('특정 게시글 조회 실패', () => {
-//     test('없는 id일 경우 404 응답', (done) => {
-//       request(app).get('/posts/3').expect(404, done);
-//     });
-//   });
-// });
+describe('GET /posts', () => {
+  test('게시글 전체 조회', async () => {
+    const ret = {
+      dataValues: [
+        {
+          views: 1,
+          id: 1,
+          title: 'test',
+          content: 'test',
+          userId: 1,
+          updatedAt: '2022-08-08T08:51:04.971Z',
+          createdAt: '2022-08-08T08:51:04.971Z',
+        },
+        {
+          views: 0,
+          id: 2,
+          title: 'test2',
+          content: 'test2',
+          userId: 1,
+          updatedAt: '2022-08-08T08:51:04.971Z',
+          createdAt: '2022-08-08T08:51:04.971Z',
+        },
+      ],
+    };
+    Post.findAll.mockReturnValue(ret);
+    const result = await postService.getList();
+
+    expect(typeof postService.getList).toBe('function');
+    expect(Post.findAll).toHaveBeenCalled();
+    expect(result).toStrictEqual(ret);
+  });
+});
 
 afterAll(async () => {
   await sequelize.sync({ force: true });
