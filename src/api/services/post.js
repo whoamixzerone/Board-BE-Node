@@ -1,4 +1,4 @@
-const { Post, sequelize } = require('../models');
+const { Post, sequelize, User } = require('../models');
 
 const setError = (status = 500, message) => {
   const error = new Error(message);
@@ -88,9 +88,63 @@ const restore = async (id) => {
   }
 };
 
+/**
+ * @whoamixzerone
+ * @param {number} id
+ * @returns {Post|Error}
+ */
+const updateAndFindId = async (id) => {
+  try {
+    const post = await Post.findByPk(id);
+    if (post === null) {
+      return setError(404, '존재하지 않는 게시글입니다');
+    }
+
+    const views = post.getDataValue('views') + 1;
+    await Post.update({ views }, { where: { id } });
+
+    return await Post.findByPk(id, {
+      attributes: { exclude: ['deletedAt', 'userId'] },
+      include: {
+        model: User,
+        attributes: ['name'],
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return setError(err);
+  }
+};
+
+/**
+ * @whoamixzerone
+ * @returns {Post|Error}
+ */
+const getList = async () => {
+  try {
+    // MySQL 문법
+    // const query = 'SELECT * FROM posts';
+    // const posts = await sequelize.query(query, {
+    //   type: sequelize.QueryTypes.SELECT,
+    // });
+    return await Post.findAll({
+      attributes: { exclude: ['content', 'deletedAt', 'userId'] },
+      include: {
+        model: User,
+        attributes: ['name'],
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return setError(err);
+  }
+};
+
 module.exports = {
   create,
   update,
   destroy,
   restore,
+  updateAndFindId,
+  getList,
 };

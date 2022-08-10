@@ -218,6 +218,13 @@ describe('GET /posts', () => {
 
     expect(typeof postService.getList).toBe('function');
     expect(Post.findAll).toHaveBeenCalled();
+    expect(Post.findAll).toBeCalledWith({
+      attributes: { exclude: ['content', 'deletedAt', 'userId'] },
+      include: {
+        model: User,
+        attributes: ['name'],
+      },
+    });
     expect(result).toStrictEqual(ret);
   });
 });

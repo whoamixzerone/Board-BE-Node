@@ -1,22 +1,5 @@
 const postService = require('../services/post');
 
-const getPostList = async (req, res, next) => {
-  try {
-    // MySQL 문법
-    const query = 'SELECT * FROM posts';
-    const posts = await sequelize.query(query, {
-      type: sequelize.QueryTypes.SELECT,
-    });
-    // sequelize 문법
-    // const posts = await Post.findAll();
-
-    res.status(200).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-};
-
 const createPost = async (req, res, next) => {
   // todo : 임시 데이터
   req.user = {
@@ -96,10 +79,41 @@ const restorePost = async (req, res, next) => {
   }
 };
 
+const getPost = async (req, res, next) => {
+  const id = Number(req.params.id);
+
+  try {
+    const result = await postService.updateAndFindId(id);
+    if (result instanceof Error) {
+      return next(result);
+    }
+
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
+const getPostList = async (req, res, next) => {
+  try {
+    const result = await postService.getList();
+    if (result instanceof Error) {
+      return next(result);
+    }
+
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 module.exports = {
   createPost,
   updatePost,
   deletePost,
   restorePost,
+  getPost,
   getPostList,
 };
