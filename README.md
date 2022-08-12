@@ -29,34 +29,45 @@
 ## 요구사항
 ### eslint, prettier 코드 스타일 일관성
 ### 유닛 테스트 작성
+### 인증 및 검증
+* 토큰 인증
+* 게시글 검증
+   * 작성한 작성자만 수정,삭제,복구 가능
 ### 게시판 관리
 * 게시글 생성
-    * 제목, 내용을 입력하여 생성(with 조회수)
-    * 제목, 내용은 필수 입력사항
+   * 제목, 내용을 입력하여 생성(with 조회수)
+   * 제목, 내용은 필수 입력사항
 * 게시글 수정
 * 게시글 삭제
-    * 삭제된 게시글 복구 가능
+   * 삭제된 게시글 복구 가능
 * 게시글 복구
 * 게시글 상세
-    * 상세보기하면 조회수가 1 증가(횟수 제한 없음)
+   * 상세보기하면 조회수가 1 증가(횟수 제한 없음)
 * 게시글 목록
 ### 유저 관리
 * 회원 가입
-    * 이메일을 id로 사용
-    * 이메일, 비밀번호, 이름 입력하여 가입
-    * 이메일, 비밀번호, 이름 필수 입력사항
+   * 이메일을 id로 사용
+   * 이메일, 비밀번호, 이름 입력하여 가입
+   * 이메일, 비밀번호, 이름 필수 입력사항
 * 로그인
-    * JWT Token 사용
-    * access_token, refresh_token 사용
-    * refresh_token은 유저 데이터에 저장
+   * JWT Token 사용
+   * access_token 사용    
 * 로그아웃
-    * refresh_token 삭제
+   * 클라이언트에서 삭제
+* 토큰 재발급
+   * 만료 시 재발급 요청
 
 ## Postman API
 👉 [Postman](https://documenter.getpostman.com/view/21399959/UzBjtoAV)
 
 ## API 설계
-![api-design](https://user-images.githubusercontent.com/67082984/174292989-a8a60a2a-cd43-4804-802f-109b1f686ef4.png)
+* 게시판 관리  
+![board-post-api](https://user-images.githubusercontent.com/67082984/184362915-6292e011-a6c9-4597-b7a3-0757de10299d.png)
+
+* 유저 관리  
+![board-user-api](https://user-images.githubusercontent.com/67082984/184362947-f38a8785-19e6-4475-8d96-beece419997c.png)
+
+
 
 ## DB 설계
 ![simple-board-erd](https://user-images.githubusercontent.com/67082984/183644324-66b6445d-6779-49b1-a27a-089ad57f124b.png)
