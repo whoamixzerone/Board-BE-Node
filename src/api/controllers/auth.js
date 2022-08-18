@@ -52,7 +52,24 @@ const signin = async (req, res, next) => {
   }
 };
 
+const reissue = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const user = await userService.findByEmail(email);
+    const token = await tokenUtils.generateAuthToken(user);
+    if (token instanceof Error) {
+      return next(token);
+    }
+
+    return res.status(httpStatus.OK).json(token);
+  } catch (err) {
+    console.error(err);
+    return next(err);
+  }
+};
+
 module.exports = {
   signup,
   signin,
+  reissue,
 };

@@ -12,7 +12,7 @@ const generateAuthToken = async (user) => {
       },
     );
 
-    return { access_token: token };
+    return { accessToken: token };
   } catch (err) {
     console.error(err);
     return new Error(err);

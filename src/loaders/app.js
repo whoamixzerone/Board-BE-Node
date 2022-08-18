@@ -5,6 +5,8 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
+const passport = require('passport');
+const passportConfig = require('../api/middlewares/jwtStrategy');
 
 const routes = require('../api/routes');
 
@@ -16,6 +18,8 @@ app.use(express.static(path.join(__dirname + 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(passport.initialize());
+passportConfig();
 
 app.use('/api', routes);
 

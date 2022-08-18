@@ -1,11 +1,6 @@
 const postService = require('../services/post');
 
 const createPost = async (req, res, next) => {
-  // todo : 임시 데이터
-  req.user = {
-    userId: 1,
-    name: '홍길동',
-  };
   const postDto = {
     ...req.body,
     ...req.user,
@@ -24,11 +19,6 @@ const createPost = async (req, res, next) => {
 };
 
 const updatePost = async (req, res, next) => {
-  // todo : 임시 데이터
-  req.user = {
-    userId: 1,
-    name: '홍길동',
-  };
   const postDto = {
     id: Number(req.params.id),
     ...req.body,
