@@ -38,10 +38,13 @@ const updatePost = async (req, res, next) => {
 };
 
 const deletePost = async (req, res, next) => {
-  const id = Number(req.params.id);
+  const postDto = {
+    id: Number(req.params.id),
+    ...req.user,
+  };
 
   try {
-    const result = await postService.destroy(id);
+    const result = await postService.destroy(postDto);
     if (result instanceof Error) {
       return next(result);
     }
@@ -54,10 +57,13 @@ const deletePost = async (req, res, next) => {
 };
 
 const restorePost = async (req, res, next) => {
-  const id = Number(req.params.id);
+  const postDto = {
+    id: Number(req.params.id),
+    ...req.user,
+  };
 
   try {
-    const result = await postService.restore(id);
+    const result = await postService.restore(postDto);
     if (result instanceof Error) {
       return next(result);
     }

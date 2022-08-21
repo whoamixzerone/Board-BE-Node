@@ -1,6 +1,5 @@
 const httpStatus = require('http-status');
 const userService = require('../services/user');
-const authService = require('../services/auth');
 const bcryptUtils = require('../utils/bcrypt');
 const tokenUtils = require('../utils/token');
 
@@ -24,7 +23,7 @@ const signup = async (req, res, next) => {
       return next(user);
     }
 
-    return res.status(httpStatus.CREATED).json(user);
+    return res.status(httpStatus.CREATED).end();
   } catch (err) {
     console.error(err);
     return next(err);

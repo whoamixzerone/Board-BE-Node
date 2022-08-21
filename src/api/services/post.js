@@ -8,7 +8,7 @@ const setError = (status = 500, message) => {
 
 /**
  * @whoamixzerone
- * @param {object} postDto : title, content, user.id, user.name
+ * @param {object} postDto : title, content, userId, name
  * @returns {Promise|Error} postDTO
  */
 const create = async (postDto) => {
@@ -36,12 +36,12 @@ const create = async (postDto) => {
 
 /**
  * @whoamixzerone
- * @param {object} postDto : id, title, content, user.id, user.name
+ * @param {object} postDto : id, title, content, userId, name
  * @returns {Error}
  */
 const update = async (postDto) => {
   try {
-    const result = await Post.update(postDto, { where: { id: postDto.id } });
+    const result = await Post.update(postDto, { where: { id: postDto.id, userId: postDto.userId } });
     if (result[0] === 0) {
       return setError(404, '존재하지 않는 게시글입니다');
     }
@@ -53,12 +53,12 @@ const update = async (postDto) => {
 
 /**
  * @whoamixzerone
- * @param {number} id
+ * @param {object} postDto : id, userId, name
  * @returns {Error}
  */
-const destroy = async (id) => {
+const destroy = async (postDto) => {
   try {
-    const result = await Post.destroy({ where: { id } });
+    const result = await Post.destroy({ where: { id: postDto.id, userId: postDto.userId } });
     if (result === 0) {
       return setError(404, '존재하지 않는 게시글입니다');
     }
@@ -70,12 +70,12 @@ const destroy = async (id) => {
 
 /**
  * @whoamixzerone
- * @param {number} id
+ * @param {object} postDto : id, userId, name
  * @returns {Error}
  */
-const restore = async (id) => {
+const restore = async (postDto) => {
   try {
-    const result = await Post.restore({ where: { id } });
+    const result = await Post.restore({ where: { id: postDto.id, userId: postDto.userId } });
     if (result === 0) {
       return setError(
         404,
@@ -100,14 +100,14 @@ const updateAndFindId = async (id) => {
       return setError(404, '존재하지 않는 게시글입니다');
     }
 
-    const views = post.getDataValue('views') + 1;
+    const views = post.get('views') + 1;
     await Post.update({ views }, { where: { id } });
 
     return await Post.findByPk(id, {
       attributes: { exclude: ['deletedAt', 'userId'] },
       include: {
         model: User,
-        attributes: ['name'],
+        attributes: ['id', 'name'],
       },
     });
   } catch (err) {
@@ -131,7 +131,7 @@ const getList = async () => {
       attributes: { exclude: ['content', 'deletedAt', 'userId'] },
       include: {
         model: User,
-        attributes: ['name'],
+        attributes: ['id', 'name'],
       },
     });
   } catch (err) {
