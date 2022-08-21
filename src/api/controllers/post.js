@@ -1,11 +1,6 @@
 const postService = require('../services/post');
 
 const createPost = async (req, res, next) => {
-  // todo : 임시 데이터
-  req.user = {
-    userId: 1,
-    name: '홍길동',
-  };
   const postDto = {
     ...req.body,
     ...req.user,
@@ -24,11 +19,6 @@ const createPost = async (req, res, next) => {
 };
 
 const updatePost = async (req, res, next) => {
-  // todo : 임시 데이터
-  req.user = {
-    userId: 1,
-    name: '홍길동',
-  };
   const postDto = {
     id: Number(req.params.id),
     ...req.body,
@@ -48,10 +38,13 @@ const updatePost = async (req, res, next) => {
 };
 
 const deletePost = async (req, res, next) => {
-  const id = Number(req.params.id);
+  const postDto = {
+    id: Number(req.params.id),
+    ...req.user,
+  };
 
   try {
-    const result = await postService.destroy(id);
+    const result = await postService.destroy(postDto);
     if (result instanceof Error) {
       return next(result);
     }
@@ -64,10 +57,13 @@ const deletePost = async (req, res, next) => {
 };
 
 const restorePost = async (req, res, next) => {
-  const id = Number(req.params.id);
+  const postDto = {
+    id: Number(req.params.id),
+    ...req.user,
+  };
 
   try {
-    const result = await postService.restore(id);
+    const result = await postService.restore(postDto);
     if (result instanceof Error) {
       return next(result);
     }
