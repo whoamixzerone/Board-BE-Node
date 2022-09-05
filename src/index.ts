@@ -1,9 +1,9 @@
-const app = require('./loaders/app');
-const mysql = require('./loaders/mysql');
+import app from './loaders/app';
+import dbConnect from './loaders/mysql';
 
 app.set('port', process.env.PORT || 3000);
 
-mysql.connect();
+dbConnect();
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), 'port listening');
