@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, ManyToOne } from 'typeorm';
 import DefaultEntity from './DefaultEntity';
 import User from './User';
 
@@ -16,6 +16,9 @@ class Post extends DefaultEntity {
 
   @ManyToOne(() => User, (user) => user.posts)
   user!: User;
+
+  @DeleteDateColumn()
+  deletedAt!: Date;
 }
 
 export default Post;

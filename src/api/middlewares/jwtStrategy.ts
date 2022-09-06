@@ -1,13 +1,14 @@
-const httpStatus = require('http-status');
-const passport = require('passport');
-const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const { User } = require('../models');
+import * as httpStatus from 'http-status';
+import * as passport from 'passport';
+import { Strategy as JwtStrategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
+import User from '../entities/User';
 
-let opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.AUTH_ACCESSKEY_TOKEN;
+const opts: StrategyOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.AUTH_ACCESSKEY_TOKEN,
+};
 
-module.exports = () => {
+export default () => {
   passport.use(
     new JwtStrategy(opts, async (payload, done) => {
       try {
@@ -20,7 +21,7 @@ module.exports = () => {
           status: httpStatus.UNAUTHORIZED,
           message: '유효하지 않은 토큰입니다',
         });
-      } catch (err) {
+      } catch (err: any) {
         console.error('JwtStrategy >>> ', err);
         if (err.name === 'TokenExpiredError') {
           return done(null, false, {

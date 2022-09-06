@@ -1,15 +1,17 @@
-export class CustomError extends Error {
-    status = 400;
+class CustomError extends Error {
+  status = 400;
 
-    constructor(status: number, message: string) {
-        super(message);
+  constructor(status: number, message: string) {
+    super(message);
 
-        this.status = status;
+    this.status = status;
 
-        Object.setPrototypeOf(this, CustomError.prototype);
-    }
+    Object.setPrototypeOf(this, CustomError.prototype);
+  }
 
-    getErrorMesaage() {
-        return 'Something went wrong: ' + this.message;
-    }
+  getErrorMesaage() {
+    return `Something went wrong: ${this.message}`;
+  }
 }
+
+export default CustomError;

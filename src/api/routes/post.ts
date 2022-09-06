@@ -1,6 +1,5 @@
-const express = require('express');
-
-const postController = require('../controllers/post');
+import * as express from 'express';
+import postController from '../controllers/post';
 
 const router = express.Router();
 
@@ -11,4 +10,4 @@ router.patch('/:id/restore', postController.restorePost);
 router.get('/:id', postController.getPost);
 router.get('/', postController.getPostList);
 
-module.exports = router;
+export default router;

@@ -1,6 +1,7 @@
-const postService = require('../services/post');
+import { Request, Response, NextFunction } from 'express';
+import postService from '../services/post';
 
-const createPost = async (req, res, next) => {
+export const createPost = async (req: Request, res: Response, next: NextFunction) => {
   const postDto = {
     ...req.body,
     ...req.user,
@@ -18,9 +19,13 @@ const createPost = async (req, res, next) => {
   }
 };
 
-const updatePost = async (req, res, next) => {
+export const updatePost = async (
+  req: Request<{ id: number }, any, any, any>,
+  res: Response,
+  next: NextFunction,
+) => {
   const postDto = {
-    id: Number(req.params.id),
+    id: req.params.id,
     ...req.body,
     ...req.user,
   };
@@ -37,9 +42,13 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-const deletePost = async (req, res, next) => {
+export const deletePost = async (
+  req: Request<{ id: number }, any, any, any>,
+  res: Response,
+  next: NextFunction,
+) => {
   const postDto = {
-    id: Number(req.params.id),
+    id: req.params.id,
     ...req.user,
   };
 
@@ -56,9 +65,13 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-const restorePost = async (req, res, next) => {
+export const restorePost = async (
+  req: Request<{ id: number }, any, any, any>,
+  res: Response,
+  next: NextFunction,
+) => {
   const postDto = {
-    id: Number(req.params.id),
+    id: req.params.id,
     ...req.user,
   };
 
@@ -71,12 +84,16 @@ const restorePost = async (req, res, next) => {
     return res.status(200).end();
   } catch (err) {
     console.error(err);
-    return next(error);
+    return next(err);
   }
 };
 
-const getPost = async (req, res, next) => {
-  const id = Number(req.params.id);
+export const getPost = async (
+  req: Request<{ id: number }, any, any, any>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id } = req.params;
 
   try {
     const result = await postService.updateAndFindId(id);
@@ -91,7 +108,7 @@ const getPost = async (req, res, next) => {
   }
 };
 
-const getPostList = async (req, res, next) => {
+export const getPostList = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await postService.getList();
     if (result instanceof Error) {
@@ -103,13 +120,4 @@ const getPostList = async (req, res, next) => {
     console.error(err);
     return next(err);
   }
-};
-
-module.exports = {
-  createPost,
-  updatePost,
-  deletePost,
-  restorePost,
-  getPost,
-  getPostList,
 };
