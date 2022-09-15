@@ -18,7 +18,7 @@ export const isAuthVerify = async (req: Request, res: Response, next: NextFuncti
         return next(new CustomError(info.status, info.message));
       }
 
-      req.user = { userId: user.id, userName: user.name };
+      req.user = { id: user.id, name: user.name };
       return next();
     },
   )(req, res, next);

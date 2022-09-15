@@ -12,6 +12,7 @@ const AppDataSource = new DataSource({
   username,
   password: password!,
   database,
+  charset: 'utf8mb4',
   synchronize: process.env.NODE_ENV === 'development',
   logging: true,
   entities: ['src/api/entities/*.ts'],

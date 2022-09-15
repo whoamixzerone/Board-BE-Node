@@ -1,10 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import postService from '../services/post';
+import User from '../entities/User';
+import { PostIdAndUser, RequestIdAndPost, RequestPost } from '../interfaces/post';
+import * as postService from '../services/post';
 
-export const createPost = async (req: Request, res: Response, next: NextFunction) => {
-  const postDto = {
-    ...req.body,
-    ...req.user,
+export const createPost = async (
+  req: Request<any, any, { title: string; content: string }, any>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const postDto: RequestPost = {
+    title: req.body.title,
+    content: req.body.content,
+    user: req.user as User,
   };
   try {
     const result = await postService.create(postDto);
@@ -12,7 +19,7 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
       return next(result);
     }
 
-    return res.status(201).json(result);
+    return res.status(201).json({ id: result.id });
   } catch (err) {
     console.error(err);
     return next(err);
@@ -20,14 +27,14 @@ export const createPost = async (req: Request, res: Response, next: NextFunction
 };
 
 export const updatePost = async (
-  req: Request<{ id: number }, any, any, any>,
+  req: Request<{ id: number }, any, { title: string; content: string }, any>,
   res: Response,
   next: NextFunction,
 ) => {
-  const postDto = {
+  const postDto: RequestIdAndPost = {
     id: req.params.id,
-    ...req.body,
-    ...req.user,
+    title: req.body.title,
+    content: req.body.content,
   };
   try {
     const result = await postService.update(postDto);
@@ -35,7 +42,7 @@ export const updatePost = async (
       return next(result);
     }
 
-    return res.status(200).end();
+    return res.status(200).json(result);
   } catch (err) {
     console.error(err);
     return next(err);
@@ -47,9 +54,9 @@ export const deletePost = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const postDto = {
+  const postDto: PostIdAndUser = {
     id: req.params.id,
-    ...req.user,
+    user: req.user as User,
   };
 
   try {
@@ -70,9 +77,9 @@ export const restorePost = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const postDto = {
+  const postDto: PostIdAndUser = {
     id: req.params.id,
-    ...req.user,
+    user: req.user as User,
   };
 
   try {
@@ -93,7 +100,7 @@ export const getPost = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { id } = req.params;
+  const id = req.params.id;
 
   try {
     const result = await postService.updateAndFindId(id);

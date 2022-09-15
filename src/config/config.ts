@@ -1,3 +1,7 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 export default {
   development: {
     username: process.env.MYSQL_USER,

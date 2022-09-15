@@ -1,10 +1,10 @@
 import * as express from 'express';
-import authController from '../controllers/auth';
+import { reissue, signin, signup } from '../controllers/auth';
 
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-router.post('/signin', authController.signin);
-router.post('/reissuance', authController.reissue);
+router.post('/signup', signup);
+router.post('/signin', signin);
+router.post('/reissuance', reissue);
 
 export default router;
