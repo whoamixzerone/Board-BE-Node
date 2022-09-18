@@ -6,7 +6,6 @@ import { isAuthVerify } from '../middlewares/auth';
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-// router.use('/posts', isAuthVerify, postRoutes);
-router.use('/posts', postRoutes);
+router.use('/posts', isAuthVerify, postRoutes);
 
 export default router;

@@ -7,13 +7,14 @@ import {
   restorePost,
   updatePost,
 } from '../controllers/post';
+import { isAuthorityPost } from '../middlewares/auth';
 
 const router = express.Router();
 
 router.post('/', createPost);
-router.patch('/:id', updatePost);
-router.delete('/:id', deletePost);
-router.patch('/:id/restore', restorePost);
+router.patch('/:id', isAuthorityPost, updatePost);
+router.delete('/:id', isAuthorityPost, deletePost);
+router.patch('/:id/restore', isAuthorityPost, restorePost);
 router.get('/:id', getPost);
 router.get('/', getPostList);
 

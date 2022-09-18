@@ -1,11 +1,11 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
-// import * as passport from 'passport';
+import * as passport from 'passport';
 import { NextFunction, Request, Response } from 'express';
 
 import routes from '../api/routes';
-// import passportConfig from '../api/middlewares/jwtStrategy';
+import passportConfig from '../api/middlewares/jwtStrategy';
 import CustomError from '../api/exceptions/customError';
 
 const app = express();
@@ -16,8 +16,8 @@ app.use('/', express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(passport.initialize());
-// passportConfig();
+app.use(passport.initialize());
+passportConfig();
 
 app.use('/api', routes);
 
