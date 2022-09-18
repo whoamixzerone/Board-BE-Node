@@ -4,8 +4,8 @@
   "description": "초심 마음으로 Node.js 게시판 구현",
   "main": "app.js",
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
+    "start": "tsc && node ./src/index.js",
+    "dev": "nodemon",
     "test": "jest"
   },
   "repository": {
@@ -19,7 +19,13 @@
   },
   "homepage": "https://github.com/whoamixzerone/Board-BE-Node#readme",
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "^18.7.14",
+    "@types/passport-jwt": "^3.0.6",
     "bcrypt": "^5.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -31,19 +37,27 @@
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
-    "sequelize": "^6.20.1"
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.9"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.4.0",
+    "@types/cors": "^2.8.12",
     "@types/jest": "^28.1.1",
+    "@types/morgan": "^1.9.3",
+    "@types/passport": "^1.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.36.0",
+    "@typescript-eslint/parser": "^5.36.0",
     "eslint": "^8.21.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.7.1",
-    "sequelize-cli": "^6.4.1",
-    "supertest": "^6.2.3"
+    "supertest": "^6.2.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
   }
 }

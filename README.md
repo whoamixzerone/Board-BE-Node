@@ -13,18 +13,27 @@
 
 ## 사용 기술(Skill)
 <p><img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/354118/nodejs.svg" />
+<img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/330398/express.svg" />
+<img alt= "icon" wide="60" height="60" src ="https://techstack-generator.vercel.app/ts-icon.svg" />
+<img alt ="icon" wide ="60" height="60" src="https://raw.githubusercontent.com/typeorm/typeorm/master/resources/logo_big.png" />
 <img alt= "icon" wide="60" height="60" src ="https://techstack-generator.vercel.app/mysql-icon.svg" />
-<img alt ="icon" wide ="60" height="60" src="https://www.svgrepo.com/show/374071/sequelize.svg" />
 <img src="https://techstack-generator.vercel.app/jest-icon.svg" alt="icon" width="60" height="60" />
 <img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="60" height="60" /><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="60" height="60" /></p>
 
 ## 프로젝트 기능
-* 게시판 - CRUD, 조회수, 댓글
-* 사용자 - 회원가입, 로그인, 로그아웃
-
 프로젝트의 기능은 한 단계씩 증가 시키면서 구현을 하려고 한다.
 
-👉 [프로젝트 ToDo](https://github.com/whoamixzerone/Board-BE-Node/blob/main/TODO.md)
+**1차 개발**
+* 게시판 - CRUD, 조회수, 댓글
+* 사용자 - 회원가입, 로그인(JWT), 로그아웃
+
+**2차 개발**
+* Typescript 변환
+* Typeorm 변환
+* Validator(class-validator)
+
+### 👉 [프로젝트 ToDo](https://github.com/whoamixzerone/Board-BE-Node/blob/main/TODO.md)  
+### 👉 [기술 Issue](https://github.com/whoamixzerone/Board-BE-Node/wiki)
 
 ## 요구사항
 ### eslint, prettier 코드 스타일 일관성
@@ -58,16 +67,15 @@
     * 만료 시 재발급 요청
 
 ## Postman API
-👉 [Postman](https://documenter.getpostman.com/view/21399959/UzBjtoAV)
+### 👉 [Postman](https://documenter.getpostman.com/view/21399959/UzBjtoAV)
 
 ## API 설계
 * 게시판 관리  
 ![board-post-api](https://user-images.githubusercontent.com/67082984/184362915-6292e011-a6c9-4597-b7a3-0757de10299d.png)
 
+
 * 유저 관리  
-![board-user-api](https://user-images.githubusercontent.com/67082984/184362947-f38a8785-19e6-4475-8d96-beece419997c.png)
-
-
+![board-user-api](https://user-images.githubusercontent.com/67082984/187410002-0d5a355b-9e9f-4b0e-bd72-e9bd3bfa00a8.png)
 
 ## DB 설계
 ![simple-board-erd](https://user-images.githubusercontent.com/67082984/183644324-66b6445d-6779-49b1-a27a-089ad57f124b.png)

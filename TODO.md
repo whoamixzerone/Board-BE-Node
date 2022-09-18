@@ -15,6 +15,7 @@
 * TypeScript 도입
 * Typeorm 도입
     * Sequelize -> Typeorm 변경
+* validator(class-validator)
 
 ### 3차 개발(예정)
 * 권한 검증
