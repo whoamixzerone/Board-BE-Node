@@ -9,25 +9,28 @@
 * 로그인
     * JWT Token 사용
 * 로그아웃
+* 권한 검증
 * 유닛 테스트
 
-### 2차 개발(예정)
+### 2차 개발
 * TypeScript 도입
 * Typeorm 도입
     * Sequelize -> Typeorm 변경
 * validator(class-validator)
 
-### 3차 개발(예정)
-* 권한 검증
+### 3차 개발
+* views(조회수), comments(댓글) entity 추가
+* 동시성 제어 처리(조회수)
 * Sorting
 * Searching
-* Filtering
 * Pagination
-* 좋아요 기능
-* 해시태그 기능
-* Redis Cache 도입
+* 유닛 테스트
 
 ### 4차 개발(예정)
+* Redis Cache 도입
+* 해시태그 기능
+* 좋아요 기능
+* Filtering
 * Github Actions(CI/CD)
 * Docker 배포
 * AWS EC2 배포
