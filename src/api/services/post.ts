@@ -135,12 +135,22 @@ export const restore = async (postDto: PostIdAndUser): Promise<Post | CustomErro
  * @returns {Promise} Post | CustomError
  */
 export const updateAndFindId = async (id: number): Promise<Post | CustomError> => {
+  const queryRunner = AppDataSource.createQueryRunner();
+
   try {
-    const postRepository = await AppDataSource.getRepository(Post);
-    const exPost = await postRepository.findOne({ where: { id } });
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    const postRepository = await queryRunner.manager.getRepository(Post);
+    const exPost = await postRepository.findOne({
+      where: { id },
+      select: ['views'],
+      lock: { mode: 'pessimistic_write' },
+    });
     if (!exPost) {
       return new CustomError(httpStatus.NOT_FOUND, '해당 게시물을 찾을 수 없습니다');
     }
+
     const views = exPost.views + 1;
     const result = await postRepository.update(id, { views });
     if (result.affected === 0) {
@@ -149,7 +159,6 @@ export const updateAndFindId = async (id: number): Promise<Post | CustomError> =
 
     const post = await postRepository
       .createQueryBuilder('post')
-      .innerJoinAndSelect('post.user', 'user')
       .select([
         'post.id',
         'post.createdAt',
@@ -158,15 +167,22 @@ export const updateAndFindId = async (id: number): Promise<Post | CustomError> =
         'post.views',
         'user.name',
       ])
+      .innerJoin('post.user', 'user')
+      .where('post.id = :id', { id })
       .getOne();
     if (!post) {
       return new CustomError(httpStatus.NOT_FOUND, '해당 게시물을 찾을 수 없습니다');
     }
 
+    await queryRunner.commitTransaction();
+
     return post;
   } catch (err: any) {
     console.error(err);
+    await queryRunner.rollbackTransaction();
     return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+  } finally {
+    await queryRunner.release();
   }
 };
 

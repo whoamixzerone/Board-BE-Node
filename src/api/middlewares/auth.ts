@@ -40,7 +40,8 @@ export const isAuthorityPost = async (
     const post = await postRepository
       .createQueryBuilder('post')
       .select(['post.id', 'user.id'])
-      .innerJoinAndSelect('post.user', 'user')
+      .innerJoin('post.user', 'user')
+      .where('post.id = :postId', { postId })
       .getOne();
     if (!post) {
       return next(new CustomError(httpStatus.NOT_FOUND, '해당 게시물을 찾을 수 없습니다'));
