@@ -33,9 +33,9 @@
 * Validator(class-validator)
 
 **3차 개발**
-* 조회수, 댓글 entity 추가
+* 댓글 entity 추가
 * 동시성 제어 처리(조회수)
-* 게시판 - 댓글
+* 게시글 - 댓글
 * Ordering(정렬 기능)
 * Searching(검색 기능)
 * Pagination(페이지 기능)
@@ -92,10 +92,10 @@
 
 ## API 설계
 * 게시판 관리  
-![board-post-api](https://user-images.githubusercontent.com/67082984/192097248-f9b6c7f6-7245-4834-8741-51d2bbf1d646.png)
+![board-post-api](https://user-images.githubusercontent.com/67082984/194297993-464f6df8-70ce-4ca0-bef5-df1456bd0ae9.png)
 
 * 유저 관리  
 ![board-user-api](https://user-images.githubusercontent.com/67082984/187410002-0d5a355b-9e9f-4b0e-bd72-e9bd3bfa00a8.png)
 
 ## DB 설계
-![simple-board-erd](https://user-images.githubusercontent.com/67082984/192096926-1f138aa9-70e1-440d-bd5a-0ea0d562ba84.png)
+![simple-board-erd](https://user-images.githubusercontent.com/67082984/194297161-b180d4b5-5809-4883-9fbc-73ca2c84b1d2.png)
