@@ -28,9 +28,9 @@ export const create = async (postDto: RequestPost) => {
     }
 
     return await post.save();
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   }
 };
 
@@ -72,9 +72,9 @@ export const update = async (postDto: RequestIdAndPost): Promise<Post | CustomEr
     }
 
     return resultPost;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   }
 };
 
@@ -96,9 +96,9 @@ export const destroy = async (postDto: PostIdAndUser): Promise<Post | CustomErro
     await postRepository.softDelete(id);
 
     return post;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   }
 };
 
@@ -123,9 +123,9 @@ export const restore = async (postDto: PostIdAndUser): Promise<Post | CustomErro
     await postRepository.restore(id);
 
     return post;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   }
 };
 
@@ -138,10 +138,11 @@ export const updateAndFindId = async (id: number): Promise<Post | CustomError> =
   const queryRunner = AppDataSource.createQueryRunner();
 
   try {
+    const postRepository = await queryRunner.manager.getRepository(Post);
+
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
-    const postRepository = await queryRunner.manager.getRepository(Post);
     const exPost = await postRepository.findOne({
       where: { id },
       select: ['views'],
@@ -177,10 +178,10 @@ export const updateAndFindId = async (id: number): Promise<Post | CustomError> =
     await queryRunner.commitTransaction();
 
     return post;
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
     await queryRunner.rollbackTransaction();
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   } finally {
     await queryRunner.release();
   }
@@ -198,8 +199,8 @@ export const getList = async (): Promise<Post[] | CustomError> => {
       .innerJoinAndSelect('post.user', 'user')
       .select(['post.id', 'post.createdAt', 'post.title', 'post.views', 'user.name'])
       .getMany();
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(err);
-    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, err);
+    return new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (err as Error).message);
   }
 };

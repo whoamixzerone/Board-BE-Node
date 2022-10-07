@@ -1,7 +1,6 @@
-/* eslint-disable import/no-cycle */
 import { Length } from 'class-validator';
-import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import AppDataSource from '../../config/data-source';
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import Comment from './Comment';
 import DefaultEntity from './DefaultEntity';
 import User from './User';
 
@@ -21,6 +20,9 @@ class Post extends DefaultEntity {
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user!: User;
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments?: Comment[];
 
   @DeleteDateColumn()
   deletedAt!: Date;
