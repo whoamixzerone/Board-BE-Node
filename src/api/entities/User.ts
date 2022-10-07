@@ -1,9 +1,9 @@
-/* eslint-disable import/no-cycle */
 import { IsEmail, Length } from 'class-validator';
 import { BeforeInsert, Column, Entity, Index, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import DefaultEntity from './DefaultEntity';
 import Post from './Post';
+import Comment from './Comment';
 
 @Entity('users')
 class User extends DefaultEntity {
@@ -22,7 +22,10 @@ class User extends DefaultEntity {
   password!: string;
 
   @OneToMany(() => Post, (post) => post.user)
-  posts!: Post[];
+  posts?: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments?: Comment[];
 
   @BeforeInsert()
   async hassPassword() {
